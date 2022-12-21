@@ -1,0 +1,14 @@
+{{define "body"}}
+    <body class="body-activity-list">
+        <div class="container">
+            {{template "snav" .}}
+            <div class="main-body">
+                {{template "hnav" .}}
+                {{block "content" .}} {{end}}
+                {{template "footer" .}}
+            </div> <!-- end main-body-->
+        </div> <!-- end container-->
+	{{template "menujs" .}}
+    </body>
+{{end}}
+

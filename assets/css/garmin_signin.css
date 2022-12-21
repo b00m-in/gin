@@ -1,0 +1,190 @@
+body, html {
+	font: 400 14px/22px Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+	color: #222;
+}
+input.btn1, input.btn2, input.btn3, button.btn1, button.btn2, button.btn3 {
+	padding-top: 0;
+	padding-bottom: 0;
+	cursor: pointer;
+	height: 32px;
+}
+#gauth-widget {
+	padding: 9px;
+	border: 1px solid #ccc;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+#GAuth-component .btn1, .GAuth-popup .btn1, #Login-MFA-Selection-content .btn1, #Login-MFA-Selection-content .btn1:focus, #GAuth-component .btn1:focus, .GAuth-popup .btn1:focus {
+	padding: 5px 14px;
+	line-height: 22px;
+	border: none;
+	color: #fff;
+	letter-spacing: 0.03em;
+	border-radius: 4px;
+	background: #1976d2;
+	vertical-align: top;
+	margin-bottom: 2px;
+	font-weight: 400;
+	font-size: 14px;
+}
+#login-component #login-create-account, #login-component #login-state-default {
+	margin-bottom: 1.5em;
+}
+.c011 {
+	display: flex;
+	justify-content: center;
+}
+.c012 {
+	width: 350px;
+	display: flex;
+	border-radius: 0px;
+	justify-content: center;
+	background-color: #fafafa;
+}
+.c013 {
+	width: 100%;
+	height: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.c014 {
+	min-height: 800px;
+	overflow-x: auto;
+	background-size: cover;
+	background-position: center;
+}
+.c0016 {
+	background: transparent url('https://pv.b00m.in/images/industrial20.jpg') no-repeat;
+}
+.c016 {
+	background-image: url('https://pv.b00m.in/images/industrial20.jpg');
+	height: calc(100vh - 50px);
+}
+.c017 {
+	height: 60px;
+	display: flex;
+	padding: 0 15% 0 15%;
+	background: #1a1a1a;
+	justify-content: space-between;
+}
+.c018 {
+	top: 3px;
+	width: 150px;
+	height: 70px;
+	display: block;
+	position: relative;
+	background: transparent url("https://pv.b00m.in/static/images/boom.png") no-repeat /*0 -23.47619px*/;
+	/*background-size: 236px 271px;*/
+}
+.c0116 {
+	font-size: inherit;
+	font-weight: inherit;
+	margin-block-end: 0em;
+	margin-block-start: 0em;
+}
+.c0118 {
+	/*margin-top: 12px;*/
+}
+.c0123 {
+	left: 0;
+	width: 100%;
+	bottom: 0;
+	display: flex;
+	padding: 60px 0;
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #EFEFEF;
+}
+.c0125 {
+	flex: 1;
+	color: #6c6c6c;
+	box-sizing: border-box;
+	text-align: left;
+	font-weight: 300;
+	padding-left: 20px;
+}
+.c0126 {
+	flex: 1;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: right;
+}
+.c0127 {
+	color: #6c6c6c;
+	display: inline-block;
+	font-weight: 400;
+}
+.c0128 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.blueForm-basic .textfield {
+	margin: 0 0 .5em;
+}
+#GAuth-component .textfield input[type="text"], #GAuth-component .textfield input[type="email"], #GAuth-component .textfield input[type="password"], #GAuth-component .textfield input[type="tel"], .GAuth-popup .formTextField input[type="text"], .GAuth-popup .formTextField input[type="email"], .GAuth-popup .formTextField input[type="password"], .GAuth-popup .formTextField input[type="tel"] {
+	background: #fff;
+	width: 100%;
+	border: 1px solid #bbb;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+#GAuth-component input[type='text'],
+#GAuth-component input[type='email'],
+#GAuth-component input[type='password'],
+#GAuth-component input[type='tel'],
+.GAuth-popup input[type='text'],
+.GAuth-popup input[type='email'],
+.GAuth-popup input[type='password'],
+.GAuth-popup input[type='tel'],
+#GAuth-component button,
+.GAuth-popup button {
+    vertical-align: top;
+    font-size: 12px;
+    line-height: 22px;
+}
+#GAuth-component input[type='text'],
+#GAuth-component input[type='email'],
+#GAuth-component input[type='password'],
+#GAuth-component input[type='tel'],
+.GAuth-popup input[type='text'],
+.GAuth-popup input[type='email'],
+.GAuth-popup input[type='password'],
+.GAuth-popup input[type='tel'] {
+    margin: 0;
+    border-radius: 5px;
+    line-height: 22px;
+    box-shadow: inset 0 3px #eee;
+}
+.btn1 {
+	text-shadow: 0 0 2px #007cc3;
+}
+.btn1, .btn2, .btn3 {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 28px;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding-left: 8px;
+	padding-right: 8px;
+	border-width: 2px;
+	border-style: solid;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	/* background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.25,rgba(255,255,255,0)),color-stop(1,rgba(255,255,255,0.5))); */
+	background-image: -moz-linear-gradient(center bottom,rgba(255,255,255,0) 25%,rgba(255,255,255,0.5) 100%);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	width: auto;
+	overflow: visible;
+}
