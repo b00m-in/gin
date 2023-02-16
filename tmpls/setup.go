@@ -7,15 +7,23 @@ import (
         "github.com/gin-gonic/gin"
         "github.com/gin-contrib/multitemplate"
         "b00m.in/tmpl"
+        "b00m.in/subs"
 )
 
-func SetupTemplates(e *gin.Engine) {
+var (
+        Dflt_ctgrs *subs.Category
+)
+
+func SetupTemplates(e *gin.Engine, test interface{}) {
         e.Delims("{{", "}}")
         e.SetFuncMap(tmpl.FuncMap)
         //e.LoadHTMLFiles("./templates/base.tmpl", "./templates/body.tmpl")
         r := LoadTemplates(e, "./templates")
         e.HTMLRender = r
-        glog.Infof("%v \n", r)
+        if tp, ok := test.(*subs.Category); ok {
+                Dflt_ctgrs = tp
+                glog.Infof("%v\n", Dflt_ctgrs)
+        }
 }
 
 func LoadTemplates(e *gin.Engine, templatesDir string) multitemplate.Renderer {

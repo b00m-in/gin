@@ -11,6 +11,9 @@ import (
         "b00m.in/gin/routes"
         "b00m.in/gin/tmpls"
         "b00m.in/subs"
+        xdsr "b00m.in/xds/resource"
+        xdss "b00m.in/xds/server"
+        "b00m.in/crypto/util"
         "net/http"
         "os"
         "os/signal"
@@ -21,13 +24,13 @@ import (
 )
 
 var (
-        cfg = flag.String("c", "config/b00m.config", "path to config file")
+        cfg = flag.String("c", "config/b00m.config", "path to config file") // this isn't even used anywhere
         srv http.Server
         httpPort int
 )
 
 func main() {
-	flag.Parse()
+	flag.Parse() // does this need to be called. there are no flags at this point - maybe only stderrthreshold?
         config, err := subs.ConfigureConfig(os.Args[1:])
         if err != nil {
                 glog.Errorf("configureconfig %v \n", err)
@@ -57,7 +60,20 @@ func main() {
         defer stop()
         r := gin.Default()
         routes.SetupRouter(r)
-        tmpls.SetupTemplates(r)
+        errch := make(chan error, 1)
+        if config.Xds != nil {
+                v := "13.1"
+                rr := xdsr.NewRR(config.Xds.RouteName, config.Xds.ClusterName, r.Routes())
+                c := rr.GenerateRoutesSnapshot(v)
+                s := xdss.NewServer(util.SDS{NodeId: config.Xds.NodeId, SdsPort: config.Xds.SdsPort, Debug: config.Xds.Debug})
+                srv, err := s.NewSDSWithCache()
+                if err != nil {
+                        glog.Errorf("%v\n", err)
+                }
+                s.SetCacheSnapshot(c)
+                go xdss.RunServerGo(errch, srv, uint(config.Xds.SdsPort))
+        }
+        tmpls.SetupTemplates(r, &config.Categories)
         //r.Run(fmt.Sprintf(":%d", p)) //(":8080")
         go startHttp(r)
         <-ctx.Done()
