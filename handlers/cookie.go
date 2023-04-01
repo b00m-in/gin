@@ -7,17 +7,23 @@ import (
         "b00m.in/data"
         "encoding/gob"
 )
+
 var(
         cc = 1
         guest = &data.Sub{Name: "new", Email: "gst"}
+        current map[string]*data.Sub
 )
-func init() {
 
+func init() {
+        current = map[string]*data.Sub{"gst":guest}
         gob.Register(&data.Sub{})
 }
 
 func ReadCookie() gin.HandlerFunc {
         return func(ctx *gin.Context) {
+                if _, ok := ctx.Deadline(); !ok {
+                        glog.Infof("%s %s \n", "no context deadline", ctx.HandlerName())
+                }
                 var you *data.Sub
                 var err error
                 s := sessions.DefaultMany(ctx, "sub")
@@ -38,14 +44,20 @@ func ReadCookie() gin.HandlerFunc {
                         glog.Infof("new user %v\n", us)
                 } else {
                         uss := us.(string)
-                        you, err = data.GetSubByEmail(uss) // expensive
-                        if err != nil {
-                                glog.Errorf("%v\n", err)
-                                you = &data.Sub{Name: "new", Email:"gst"}
-                                s.Set("useremail", "gst")
+                        if c, ok := current[uss]; ok {
+                                you = c
+                                glog.Infof("current user: %s\n", c.Email)
                         } else {
-                                s.Set("useremail", you.Email)
-                                glog.Infof("user session %v %v\n", you.Name, you.Email)
+                                glog.Infof("db user: %s\n", uss)
+                                you, err = data.GetSubByEmail(uss) // expensive
+                                if err != nil {
+                                        glog.Errorf("%v\n", err)
+                                        you = &data.Sub{Name: "new", Email:"gst"}
+                                        s.Set("useremail", "gst")
+                                } else {
+                                        s.Set("useremail", you.Email)
+                                        glog.Infof("user session %v %v\n", you.Name, you.Email)
+                                }
                         }
                 }
                 s.Set("user", you)

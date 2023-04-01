@@ -2,7 +2,7 @@ package handlers
 
 import (
         //"encoding/json"
-        //"fmt"
+        "fmt"
         //"io"
         "net/http"
         "strings"
@@ -53,7 +53,7 @@ func HandleSubsGET(c *gin.Context) {
                 }
                 switch toks[2] {
                 case "faults":
-                        glog.Infof("handlenew get faults %s : %d \n", sub, you.Id)
+                        glog.Infof("handlenewsubs get faults %s : %d \n", sub, you.Id)
                         pubs, err := data.GetPubFaultsForSub(you.Id)
                         if err != nil {
                                 glog.Errorf("Https %v \n", err)
@@ -61,8 +61,12 @@ func HandleSubsGET(c *gin.Context) {
                                 c.HTML(200, "bodyfaults.html", rendere)
                                 return
                         }
-                        render := tmpl.Renderm{Message: "Faults", Pubs: pubs, Categories: tmpls.Dflt_ctgrs, User: you.Name}
-                        c.HTML(200, "bodyfaults.html", render)
+                        render := tmpl.Renderm{Message: "Faults", Pubs: pubs, Categories: tmpls.Dflt_ctgrs, User: fmt.Sprintf("%d", you.Id)}//you.Name}
+                        if len(toks) > 3 && toks[3]=="map" {
+                                c.HTML(200, "bodyfaultsmap.html", render)
+                        } else {
+                                c.HTML(200, "bodyfaults.html", render)
+                        }
                         return
                 case "pubs":
                         if len(toks) == 3 { // /subs/pubs
@@ -210,6 +214,7 @@ func HandleSubsGET(c *gin.Context) {
                                 glog.Infof("handleSubs post login %s \n", ds.Email)
                                 you = s
                                 you.Pswd = "****"
+                                current[you.Email] = you
                                 session.Set("user", you)
                                 session.Set("useremail", you.Email)
                                 if err := session.Save(); err != nil {
@@ -371,6 +376,12 @@ func HandleSubsGET(c *gin.Context) {
 
 func HandleSubsLogout(c *gin.Context){
         session := sessions.DefaultMany(c, "sub")
+        if v := session.Get("user"); v != nil {
+                you := v.(*data.Sub)
+                if you != nil && you.Name != "new" {
+                        delete(current, you.Email)
+                }
+        }
         session.Clear()
         session.Save()
         c.HTML(200, "subs_login.html", gin.H{})

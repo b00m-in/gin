@@ -1,0 +1,18 @@
+{{define "content"}}
+<div class="content page activity-list flexColumn">
+    <div id="pageContainer">
+        <div class="row-fluid page-content flexColumn activity-list-page-wrapper">
+            <h3> {{.Message}} <a href="/subs/faults"> List View</a> </h3>
+            <div id="subhidden">{{.User}}</div>
+            <div class="row-fluid list-items flexItemAutoHeight">
+                <div class="w-100 h-100">
+                  <div id="map" class="w-100 min-vh-100"> 
+                    <script src="/static/pubapp.js"></script>
+                    <script defer src=""></script>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{end}}

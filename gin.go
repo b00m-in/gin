@@ -113,11 +113,12 @@ func startHttp(r *gin.Engine) {
                 mux.Handle("/gridwatch/", http.HandlerFunc(indexHandler))
                 mux.Handle("/", http.HandlerFunc(handleRoot))
         }*/
+        tr := http.TimeoutHandler(r, time.Second*6, "Request timed out")
         srv = http.Server{
-                //ReadTimeout: time.Duration(httpRto) * time.Second,
-                //WriteTimeout: time.Duration(httpWto) * time.Second,
+                ReadTimeout: 10 * time.Second,
+                WriteTimeout: time.Duration(10) * time.Second,
                 Addr: fmt.Sprintf(":%d", httpPort),
-                Handler: r,
+                Handler: tr,
         }
         err := srv.ListenAndServe()
         if err != nil {

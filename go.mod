@@ -40,9 +40,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/paulmach/go.geojson v1.4.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
-	github.com/plutov/paypal/v4 v4.0.0 // indirect
 	github.com/smira/go-point-clustering v1.0.1 // indirect
-	github.com/stripe/stripe-go/v72 v72.122.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/willf/bitset v1.1.10 // indirect
 	golang.org/x/crypto v0.5.0 // indirect

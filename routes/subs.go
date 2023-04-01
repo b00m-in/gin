@@ -22,6 +22,7 @@ func addSubRoutes(rg *gin.RouterGroup) {
         rg.GET("/packets/:hash", handlers.ReadCookie(), handlers.HandleSubsGET)
         rg.POST("/packets/:hash", handlers.ReadCookie(), handlers.HandleSubsGET)
         rg.GET("/faults", handlers.ReadCookie(), handlers.HandleSubsGET)
+        rg.GET("/faults/map", handlers.ReadCookie(), handlers.HandleSubsGET)
         rg.GET("/summary", handlers.ReadCookie(), handlers.HandleSubsGET)
         rg.GET("/you", handlers.ReadCookie(), handlers.HandleSubsGET)
         rg.POST("/you", handlers.ReadCookie(), handlers.HandleSubsGET)
