@@ -13,7 +13,9 @@ import (
         "github.com/gin-contrib/sessions"
         "b00m.in/data"
         "b00m.in/tmpl"
+        "b00m.in/comms"
         "b00m.in/gin/tmpls"
+        "b00m.in/gin/glue"
 )
 
 var (
@@ -428,7 +430,10 @@ func HandleSubsRegister(c *gin.Context) {
                                 return
                         }
                         // success
-                        //newregs <- comms.Entity{e, n} // put in channel to send email
+                        select { // don't block - send or drop
+                                case glue.Newregs <- comms.Entity{ds.Email, ds.Name}: // put in channel to send email
+                                default:
+                        }
                         glog.Infof("handleSubs set cookie %s \n", ds.Email)
                         //http.SetCookie(w, &http.Cookie{Name: "sub", Value: e, Domain:"b00m.in", Path: "/", MaxAge: 600, HttpOnly: true, Expires: time.Now().Add(time.Second * 600)})
                         glog.Infof("handlesubs post putsubs %d \n", id)

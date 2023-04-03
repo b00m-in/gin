@@ -22,6 +22,7 @@ type Fault struct {
 
 func Setup(email, name string) {
         from = comms.Entity{email, name}
+        Newregs = make(chan comms.Entity, 2)
 }
 
 // loadPubDdeets also listens on channel to recieve data of new registrants to send email. It also listens on a channel to send email notifications of faults to subscribers

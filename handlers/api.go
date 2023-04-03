@@ -144,7 +144,10 @@ func HandleApiRegisterPOST(c *gin.Context) {
                         io.WriteString(w, "Sorry couldn't register")
                         return
                 }
-                glue.Newregs <- comms.Entity{e, fn}
+                select { // send or drop
+                        case glue.Newregs <- comms.Entity{e, fn}:
+                        default:
+                }
                 w.WriteHeader(http.StatusOK)
                 io.WriteString(w, "Registered " + strconv.Itoa(int(i)))
                 return
