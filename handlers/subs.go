@@ -12,13 +12,11 @@ import (
         "github.com/golang/glog"
         "github.com/gin-contrib/sessions"
         "b00m.in/data"
-        "b00m.in/comms"
         "b00m.in/tmpl"
         "b00m.in/gin/tmpls"
 )
 
 var (
-        newregs chan comms.Entity
         dflt1_ctgrs = []string{"News", "Docs", "Gridwatch", "Leaderboard", "Community", "Github"}
         shortform = "2006-Jan-02"
         shortform1 = "2006-01-02"
@@ -383,6 +381,7 @@ func HandleSubsLogout(c *gin.Context){
                 }
         }
         session.Clear()
+        session.Options(sessions.Options{MaxAge:-1})
         session.Save()
         c.HTML(200, "subs_login.html", gin.H{})
         return

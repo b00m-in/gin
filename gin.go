@@ -10,6 +10,7 @@ import (
         "github.com/gin-gonic/gin"
         "b00m.in/gin/routes"
         "b00m.in/gin/tmpls"
+        "b00m.in/gin/glue"
         "b00m.in/subs"
         xdsr "b00m.in/xds/resource"
         xdss "b00m.in/xds/server"
@@ -74,6 +75,10 @@ func main() {
                 go xdss.RunServerGo(errch, srv, uint(config.Xds.SdsPort))
         }
         tmpls.SetupTemplates(r, &config.Categories)
+        if config.From != nil {
+                glue.Setup(config.From.Fromemail, config.From.Fromname)
+                go glue.LoadPubdeets(config.Debug)
+        }
         //r.Run(fmt.Sprintf(":%d", p)) //(":8080")
         go startHttp(r)
         <-ctx.Done()

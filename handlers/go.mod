@@ -1,1 +1,1 @@
-module b00m.in/gin/handlers
+module b00m.in/gin/glue

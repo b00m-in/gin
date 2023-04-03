@@ -12,6 +12,7 @@ import (
         "github.com/golang/glog"
         "b00m.in/data"
         "b00m.in/comms"
+        "b00m.in/gin/glue"
 )
 
 func HandleApiGET(c *gin.Context) {
@@ -143,7 +144,7 @@ func HandleApiRegisterPOST(c *gin.Context) {
                         io.WriteString(w, "Sorry couldn't register")
                         return
                 }
-                newregs <- comms.Entity{e, fn}
+                glue.Newregs <- comms.Entity{e, fn}
                 w.WriteHeader(http.StatusOK)
                 io.WriteString(w, "Registered " + strconv.Itoa(int(i)))
                 return

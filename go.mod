@@ -2,6 +2,7 @@ module b00m-in/gin
 
 require (
 	b00m.in/crypto/util v0.0.0-00010101000000-000000000000
+	b00m.in/gin/glue v0.0.0-00010101000000-000000000000
 	b00m.in/gin/routes v0.0.0-00010101000000-000000000000
 	b00m.in/gin/tmpls v0.0.0-00010101000000-000000000000
 	b00m.in/subs v0.0.0-00010101000000-000000000000
@@ -58,6 +59,8 @@ replace b00m.in/gin/handlers => ./handlers
 replace b00m.in/gin/routes => ./routes
 
 replace b00m.in/gin/tmpls => ./tmpls
+
+replace b00m.in/gin/glue => ./glue
 
 replace b00m.in/data => ../data
 
