@@ -12,6 +12,18 @@ Contains a simple gin engine, router and template implementation.
 
 `assets/code` should contain highcharts library related files
 
-## 
+## Login/out
 
+`handlers/cookie.go` has a `map[string]*data.Sub` named `current` which stores the current users logged in. This prevents expensive identifying database calls for requests from users already logged in.
 
+`HandleSubsLogout` should delete the user's entry in `current` and  should also expire the session `session.Options(sessions.Options{MaxAge:-1})` so the session cookie gets deleted by the browser or else it persists and pollutes further requests
+
+Newly registered users are sent an email to verify their registration. This is done using the `Newregs` channel in `glue`. This channel only gets set up if the config file provided at start-up contains relevant email api info. If not the channel never gets setup and sends to it may panic or block forever. To avoid this a `send or drop` select pattern is used:
+
+```
+select { // don't block - send or drop
+        case glue.Newregs <- comms.Entity{ds.Email, ds.Name}: // put in channel to send email
+        default:
+}
+```
+## Discovery

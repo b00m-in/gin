@@ -31,5 +31,9 @@ func addSubRoutes(rg *gin.RouterGroup) {
         rg.GET("/logout", handlers.ReadCookie(), handlers.HandleSubsLogout)
         rg.GET("/register", handlers.ReadCookie(), handlers.HandleSubsRegister)
         rg.POST("/register", handlers.ReadCookie(), handlers.HandleSubsRegister)
+        rg.GET("/verify/:hash", handlers.ReadCookie(), handlers.HandleSubsRegister)
+        rg.GET("/help", handlers.ReadCookie(), handlers.HandleSubsGET)
+        rg.GET("/groups", handlers.ReadCookie(), handlers.HandleSubsGET)
+        rg.GET("/connections", handlers.ReadCookie(), handlers.HandleSubsGET)
 }
 

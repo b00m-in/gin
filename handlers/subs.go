@@ -152,6 +152,21 @@ func HandleSubsGET(c *gin.Context) {
                         render := tmpl.RenderOne {Message: "You", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
                         c.HTML(200, "bodyyou.html", render)
                         return
+                case "help:
+                        glog.Infof("handlesubs post sub/you w cookie \n")
+                        render := tmpl.RenderOne {Message: "God helps those ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
+                        c.HTML(200, "bodymessage.html", render)
+                        return
+                case "connections":
+                        glog.Infof("handlesubs post sub/you w cookie \n")
+                        render := tmpl.RenderOne {Message: "Coming soon ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
+                        c.HTML(200, "bodymessage.html", render)
+                        return
+                case "groups":
+                        glog.Infof("handlesubs post sub/you w cookie \n")
+                        render := tmpl.RenderOne {Message: "Coming soon ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
+                        c.HTML(200, "bodymessage.html", render)
+                        return
                 }
         case "POST":
                 switch toks[2] {
@@ -390,6 +405,9 @@ func HandleSubsLogout(c *gin.Context){
 }
 
 func HandleSubsRegister(c *gin.Context) {
+        r := c.Request
+        toks := strings.Split(r.URL.Path, "/")
+        glog.Infof("handleSubsRegister %s %v \n", r.Method, toks)
         sub := ""
         var you *data.Sub
         session := sessions.DefaultMany(c, "sub")
@@ -401,13 +419,37 @@ func HandleSubsRegister(c *gin.Context) {
         }
         switch c.Request.Method {
         case "GET":
-                if sub == "" {
-                        c.HTML(200, "subs_new.html", gin.H{})
+                switch toks[2] {
+                case "register":
+                        if sub == "" {
+                                c.HTML(200, "subs_new.html", gin.H{})
+                                return
+                        }
+                        render := tmpl.GetSummaryRender(you)
+                        c.HTML(200, "bodysummary.html", gin.H{"Total": render.Total, "Online": render.Online, "Protected": render.Protected})
+                        return
+                case "verify": // /subs/verify/:hash
+                        hashp := c.Params.ByName("hash")
+                        /*hash, err := strconv.Atoi(hashp)
+                        if err != nil {
+                                glog.Errorf("verify strconv hash %v \n", err)
+                                render := tmpl.Renderm{Message: "Verification error - please login", Categories: tmpls.Dflt_ctgrs, User: you.Name}
+                                c.HTML(200, "subs_login.html", render)
+                                return
+                        }*/
+                        //check if verification exists in table sub
+                        s1, err := data.CheckVerification(hashp)
+                        if err != nil {
+                                glog.Errorf("verification doesn't exist %s \n", hashp)
+                                render := tmpl.Renderm{Message: "Verification error - please login", Categories: tmpls.Dflt_ctgrs, User: you.Name}
+                                c.HTML(200, "subs_login.html", render)
+                                return
+                        }
+                        glog.Infof("Verified %s \n", s1.Email)
+                        render := tmpl.Renderm{Message: "Thanks for verifying - please login", Categories: tmpls.Dflt_ctgrs, User: you.Name}
+                        c.HTML(200, "subs_login.html", render)
                         return
                 }
-                render := tmpl.GetSummaryRender(you)
-                c.HTML(200, "bodysummary.html", gin.H{"Total": render.Total, "Online": render.Online, "Protected": render.Protected})
-                return
         case "POST":
                 if sub == "" {
                         var ds data.Sub
