@@ -54,7 +54,7 @@ func LoadPubdeets(debug bool) {
                                 } else {
                                         glog.Infof("comms.SendMail fault %v email %v \n", newfault.Nickname, newfault.Entity.Email)
                                         // email sent so update pubconfig.lastnotified time and pub.protected
-                                        if err := data.UpdatePubStatus(newfault.Hash); err != nil {
+                                        if err := data.UpdatePubStatus(newfault.Hash, false, true); err != nil {
                                                 glog.Errorf("updatelastnotified %v \n", err)
                                         }
                                 }

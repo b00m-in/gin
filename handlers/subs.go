@@ -152,6 +152,16 @@ func HandleSubsGET(c *gin.Context) {
                         render := tmpl.RenderOne {Message: "You", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
                         c.HTML(200, "bodyyou.html", render)
                         return
+                case "leaderboard":
+                        glog.Infof("handlesubs post sub/you w cookie \n")
+                        render := tmpl.RenderOne {Message: "Coming soon ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
+                        c.HTML(200, "bodymessage.html", render)
+                        return
+                case "messages":
+                        glog.Infof("handlesubs post sub/you w cookie \n")
+                        render := tmpl.RenderOne {Message: "Coming soon ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}
+                        c.HTML(200, "bodymessage.html", render)
+                        return
                 case "help":
                         glog.Infof("handlesubs post sub/you w cookie \n")
                         render := tmpl.RenderOne {Message: "God helps those ...", Sub: you, Categories: dflt1_ctgrs, User: you.Name}

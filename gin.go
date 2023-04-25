@@ -63,7 +63,12 @@ func main() {
         routes.SetupRouter(r)
         errch := make(chan error, 1)
         if config.Xds != nil {
-                v := "13.1"
+                var v string
+                if config.Xds.Version == "" {
+                        v = "13.1"
+                } else {
+                        v = config.Xds.Version
+                }
                 rr := xdsr.NewRR(config.Xds.RouteName, config.Xds.ClusterName, r.Routes())
                 c := rr.GenerateRoutesSnapshot(v)
                 s := xdss.NewServer(util.SDS{NodeId: config.Xds.NodeId, SdsPort: config.Xds.SdsPort, Debug: config.Xds.Debug})

@@ -3,7 +3,7 @@
 
 ## Contents
 
-Contains a simple gin engine, router and template implementation.
+Contains a simple [gin](https://github.com/gin-gonic/gin) server, router and templates for display of data.
 
 `b00m.in/xds` is used to also launch a discovery service to publish RoutesInfo to a proxy like envoy.
 
@@ -26,4 +26,8 @@ select { // don't block - send or drop
         default:
 }
 ```
-## Discovery
+## Service Discovery
+
+[XDS](https://github.com/b00m-in/xds) encapsulates a [grpc xds server](https://github.com/envoyproxy/go-control-plane) which can be used to publish secrets and routes to [envoyproxy](https://envoyproxy.io).
+
+This can be used to enable gin to publish it's routes as an RDS (route discovery service) which envoyproxy can then be configured to dynamically load whenever new routes are available or old ones are disabled. 

@@ -26,6 +26,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 .pull-left {
 	float: left;
 }
+.activity-date {
+	padding-right:10px;
+}
 .inline {
 	display: inline;
 }
